@@ -818,7 +818,7 @@ ForEach ($OU in $OUs) {
     $FileName = Remove-InvalidFileNameChars($OU)
     if ( $("$Path\$domain\OU\ACLs\$FileName.csv").length -ge 260 ) {
         Write-Verbose -Message "--------------------------------------------------------------------------------" -Verbose
-        Write-Verbose -Message "Directory Path '$Path\$domain\OU\ACLs\$FileName.csv' is over the 260 character limit and may not export unless 'Long Paths' have been enabled on the system" -Verbose
+        Write-Verbose -Message "Directory Path '$Path\$domain\OU\ACLs\$FileName.csv' has '$($("$Path\$domain\OU\ACLs\$FileName.csv").length)' characters which is over the 260 character limit and may not export unless 'Long Paths' have been enabled on the system" -Verbose
         Write-Verbose -Message "--------------------------------------------------------------------------------`r`n`r`n" -Verbose
     }
     Get-Acl -Path "Microsoft.ActiveDirectory.Management.dll\ActiveDirectory:://RootDSE/$OU" | Select-Object -ExpandProperty Access |
