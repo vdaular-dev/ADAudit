@@ -38,6 +38,12 @@ be valid in your current domain.
 
 .NOTES
 Author: Alex Entringer
+
+Updated by: Phil Hanus - 06/25/2024
+    - Fixed issue where script errors when run on Server 2019+
+    - Check for outFilePath longer than 260 characters
+    - Added Try/catch when checking for Confidentiality Bit
+
 #>
 [CmdletBinding()]
 param (
