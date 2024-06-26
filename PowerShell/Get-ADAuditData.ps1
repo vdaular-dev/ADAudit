@@ -820,6 +820,8 @@ ForEach ($OU in $OUs) {
         Write-Verbose -Message "--------------------------------------------------------------------------------" -Verbose
         Write-Verbose -Message "Directory Path '$Path\$domain\OU\ACLs\$FileName.csv' has '$($("$Path\$domain\OU\ACLs\$FileName.csv").length)' characters which is over the 260 character limit and may not export unless 'Long Paths' have been enabled on the system" -Verbose
         Write-Verbose -Message "--------------------------------------------------------------------------------`r`n`r`n" -Verbose
+        Write-Output "Directory Path '$Path\$domain\OU\ACLs\$FileName.csv' has '$($("$Path\$domain\OU\ACLs\$FileName.csv").length)' characters which is over the 260 character limit and may not export unless 'Long Paths' have been enabled on the system $(Get-Date -Format G)`r`n`r`n" |
+            Out-File -FilePath "$Path\$domain\consoleOutput.txt" -Append -Encoding utf8
     }
     Get-Acl -Path "Microsoft.ActiveDirectory.Management.dll\ActiveDirectory:://RootDSE/$OU" | Select-Object -ExpandProperty Access |
         Select-Object @{name='organizationalUnit';expression={$OU}},
@@ -852,6 +854,8 @@ catch {
     Write-Verbose -Message "--------------------------------------------------------------------------------" -Verbose
     Write-Verbose -Message "Problem with Exporting AD Confidentiality Bit. Error: $($_)" -Verbose
     Write-Verbose -Message "--------------------------------------------------------------------------------`r`n`r`n" -Verbose
+    Write-Output "Problem with Exporting AD Confidentiality Bit. Error: $($_) $(Get-Date -Format G)`r`n`r`n" |
+        Out-File -FilePath "$Path\$domain\consoleOutput.txt" -Append -Encoding utf8
 }
 
 
